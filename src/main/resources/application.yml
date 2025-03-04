@@ -1,0 +1,19 @@
+spring:
+  application:
+    name:dine-in-order-api
+
+
+# DATASOURCE CONFIGURATION
+  datasource:
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+app:
+  base-url: /api/v1
+
+server:
+  port: 8081
