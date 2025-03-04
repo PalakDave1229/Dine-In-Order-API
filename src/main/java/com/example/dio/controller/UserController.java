@@ -8,6 +8,7 @@ import com.example.dio.service.UserService;
 import com.example.dio.util.FieldErrorResponse;
 import com.example.dio.util.ResponseBuilder;
 import com.example.dio.util.ResponseStructure;
+import com.example.dio.util.SimpleErrorRespond;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @Tag(name = "User Controller", description = "Collection of APIs Endpoints dealing with user data")
+@RequestMapping("/api/v1")
 public class UserController {
 
     private UserService userService;
@@ -47,8 +49,8 @@ public class UserController {
            """,
    responses = {
            @ApiResponse(responseCode = "201", description = "User Founded"),
-           @ApiResponse(responseCode = "400", description = "Invalid Input", content = {
-                   @Content(schema = @Schema(implementation = FieldErrorResponse.class))
+           @ApiResponse(responseCode = "404", description = "User Not Found", content = {
+                   @Content(schema = @Schema(implementation = SimpleErrorRespond.class))
            })
    })
     public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable long userId){
@@ -61,7 +63,10 @@ public class UserController {
            The API end-points is used to Update User Details By ID.
            """,
            responses = {
-                   @ApiResponse(responseCode = "201", description = "User Updating"),
+                   @ApiResponse(responseCode = "201", description = "User Updated Successfully"),
+                   @ApiResponse(responseCode = "404", description = "User Not Found", content = {
+                           @Content(schema = @Schema(implementation = SimpleErrorRespond.class))
+                   }),
                    @ApiResponse(responseCode = "400", description = "Invalid Input", content = {
                            @Content(schema = @Schema(implementation = FieldErrorResponse.class))
                    })
