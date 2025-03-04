@@ -2,6 +2,7 @@ package com.example.dio.dto.request;
 
 import com.example.dio.enums.UserRole;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -20,11 +21,14 @@ public class RegisterRequest {
 
     @NotEmpty(message = "Email cannot be null or blank")
     @NotBlank(message = "Email cannot be blank")
+    @Email(regexp = "^[a-zA-Z0-9._%+-]+@gmail\\.com$", message = "Only Gmail addresses are allowed (@gmail.com) is required")
     private String email;
 
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_])(?!.*\\s)[A-Za-z\\d\\W_]{8,12}$", message = "Password must contain at least one uppercase letter , lowercase letter, digit, special character, not contain spaces")
     private String password;
 
     private UserRole userRole;
+
 
 
 }
