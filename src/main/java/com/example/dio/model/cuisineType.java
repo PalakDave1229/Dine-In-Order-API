@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 public class cuisineType {
 @Id
-    private String cuisine;
+    private String cuisines;
 
 @ManyToMany
-    private Restaurant restaurant;
+    private Restaurant restaurants;
 }
