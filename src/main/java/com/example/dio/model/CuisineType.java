@@ -6,13 +6,15 @@ import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
-public class cuisineType {
+public class CuisineType {
 @Id
     private String cuisines;
 
 @ManyToMany
-    private Restaurant restaurants;
+    private List<Restaurant> restaurants;
 }

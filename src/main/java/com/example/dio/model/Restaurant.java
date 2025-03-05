@@ -38,7 +38,7 @@ public class Restaurant {
     private LocalDate lastModifiedAt;
 
     @ManyToMany(mappedBy = "restaurants", fetch = FetchType.EAGER)
-    private List<cuisineType> cuisineType;
+    private List<CuisineType> cuisineType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Admin admin;
