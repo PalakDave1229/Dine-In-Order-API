@@ -2,6 +2,9 @@ package com.example.dio.model;
 
 import com.example.dio.enums.DietType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -9,6 +12,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "restaurant")
+@Getter
+@Setter
 public class Restaurant {
     @Id
 
@@ -32,6 +37,10 @@ public class Restaurant {
 
     private LocalDate lastModifiedAt;
 
-    @ManyToMany(mappedBy = "products", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "restaurants", fetch = FetchType.EAGER)
     private List<cuisineType> cuisineType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Admin admin;
+
 }
