@@ -73,6 +73,6 @@ public class UserController {
            })
     public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@RequestBody UserRequest userRequest, @PathVariable long  userId){
         UserResponse userResponse = userService.updateUserById(userRequest, userId);
-        return ResponseBuilder.success(HttpStatus.OK, "User Updated", userResponse);
+        return ResponseBuilder.OK( userResponse ,"User Updated");
    }
 }

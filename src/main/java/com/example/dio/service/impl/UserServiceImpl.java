@@ -14,11 +14,21 @@ import com.example.dio.service.UserService;
 import lombok.*;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of the UserService interface for handling user-related operations.
+ */
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+
+    /**
+     * Registers a new user based on their role.
+     * @param registerRequest DTO containing user registration details
+     * @return UserResponse containing user details after successful registration
+     */
 
     @Override
     public UserResponse registerUser(RegisterRequest registerRequest){
@@ -30,6 +40,12 @@ public class UserServiceImpl implements UserService {
         return userMapper.mapToUserResponse(user);
     }
 
+    /**
+     * Creates a user entity based on the provided role.
+     * @param role UserRole enum specifying the type of user
+     * @return User object corresponding to the specified role
+     */
+
     private User createUserByRole(UserRole role){
         User user;
         switch (role){
@@ -40,12 +56,27 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    /**
+     * Finds a user by their ID.
+     * @param userId ID of the user to be retrieved
+     * @return UserResponse containing user details
+     * @throws UserNotFoundByIdException if no user is found with the given ID
+     */
+
     @Override
     public UserResponse findUserById(long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundByIdException("Failed to find User,user not found by Id"));
         return userMapper.mapToUserResponse(user);
     }
+
+    /**
+     * Updates a user's details by their ID.
+     * @param userRequest DTO containing updated user information
+     * @param userId ID of the user to be updated
+     * @return UserResponse containing updated user details
+     * @throws UserNotFoundByIdException if no user is found with the given ID
+     */
 
     @Override
     public UserResponse updateUserById(UserRequest userRequest, long userId){
