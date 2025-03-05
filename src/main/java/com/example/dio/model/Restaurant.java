@@ -1,12 +1,11 @@
 package com.example.dio.model;
 
 import com.example.dio.enums.DietType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurant")
@@ -32,4 +31,7 @@ public class Restaurant {
     private LocalDate createdAt;
 
     private LocalDate lastModifiedAt;
+
+    @ManyToMany(mappedBy = "products", fetch = FetchType.EAGER)
+    private List<cuisineType> cuisineType;
 }
