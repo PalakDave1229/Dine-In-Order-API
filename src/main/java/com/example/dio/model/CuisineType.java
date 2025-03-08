@@ -1,8 +1,6 @@
 package com.example.dio.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,10 +9,13 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name="CuisineType")
 public class CuisineType {
-@Id
+
+    @Id
+    @Column(name = "cuisine")
     private String cuisines;
 
-@ManyToMany
+    @ManyToMany(mappedBy = "cuisineTypes")
     private List<Restaurant> restaurants;
 }

@@ -71,7 +71,7 @@ public class UserController {
                            @Content(schema = @Schema(implementation = FieldErrorResponse.class))
                    })
            })
-    public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@RequestBody UserRequest userRequest, @PathVariable long  userId){
+    public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@RequestBody @Valid UserRequest userRequest, @PathVariable long  userId){
         UserResponse userResponse = userService.updateUserById(userRequest, userId);
         return ResponseBuilder.OK( userResponse ,"User Updated");
    }

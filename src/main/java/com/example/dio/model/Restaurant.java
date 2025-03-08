@@ -4,19 +4,17 @@ import com.example.dio.enums.DietType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Table(name = "restaurants")
 @Getter
 @Setter
+@Table(name="restaurants")
 public class Restaurant {
     @Id
-
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private long restaurantId;
 
     private String name;
@@ -37,10 +35,13 @@ public class Restaurant {
 
     private LocalDate lastModifiedAt;
 
-    @ManyToMany(mappedBy = "restaurants", fetch = FetchType.EAGER)
-    private List<CuisineType> cuisineType;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<CuisineType> cuisineTypes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Admin admin;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Tab> tab;
 
 }
