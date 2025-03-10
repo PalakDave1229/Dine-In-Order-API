@@ -14,8 +14,11 @@ public class CuisineType {
 
     @Id
     @Column(name = "cuisine")
-    private String cuisines;
+    private String cuisine;
 
     @ManyToMany(mappedBy = "cuisineTypes")
     private List<Restaurant> restaurants;
+
+    @OneToMany(mappedBy = "cuisineType")
+    private List<FoodItem> foodItems;
 }

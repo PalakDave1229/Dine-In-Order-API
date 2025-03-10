@@ -29,7 +29,8 @@ public class Restaurant {
 
     private LocalTime closesAt;
 
-    private List<DietType> DietTypes;
+    @Enumerated(EnumType.STRING)
+    private List<DietType> dietTypes;
 
     private LocalDate createdAt;
 
@@ -42,6 +43,12 @@ public class Restaurant {
     private Admin admin;
 
     @OneToMany(mappedBy = "restaurant")
-    private List<Tab> tab;
+    private List<RestaurantTable> restaurantTables;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<FoodItem> foodItems;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Staff> staffs;
 
 }

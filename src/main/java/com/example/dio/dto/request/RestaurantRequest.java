@@ -1,6 +1,8 @@
 package com.example.dio.dto.request;
 
 import com.example.dio.enums.DietType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,8 +36,8 @@ public class RestaurantRequest {
 
     private LocalTime closesAt;
 
-    private List<DietType> DietTypes;
+    private List<DietType> dietTypes;
 
-    private List<String> cuisines;
+    private List<String> cuisineTypes;
 
 }

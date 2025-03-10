@@ -31,6 +31,7 @@ public class RestoServiceImpl implements RestoService {
     @Override
     public RestaurantResponse createRestaurant(long userId, RestaurantRequest restaurantRequest) {
         User user =userRepository.findById(userId).orElseThrow(() -> new UserNotFoundByIdException("User Not Found , Invaild User Id"));
+
         if(user instanceof Admin admin){
             Restaurant restaurant = restaurantMapper.mapToRestaurantEntity(restaurantRequest);
 
@@ -39,6 +40,8 @@ public class RestoServiceImpl implements RestoService {
             restaurant.setAdmin(admin);
 
             restaurantReposetory.save(restaurant);
+            System.out.println(restaurant.getRestaurantId());
+
 
             return restaurantMapper.mapToRestaurantResponse(restaurant);
         }
@@ -53,9 +56,9 @@ public class RestoServiceImpl implements RestoService {
 
     private List<CuisineType> createNonExistingCuisineTypes(List<CuisineType> cuisineTypes) {
         return cuisineTypes.stream()
-                .map(type -> cuisineRepository.findById(type.getCuisines())
+                .map(type -> cuisineRepository.findById(type.getCuisine())
                         .orElseGet(() -> {
-                                    type.setCuisines(type.getCuisines().toLowerCase());
+                                    type.setCuisine(type.getCuisine().toLowerCase());
                                     return cuisineRepository.save(type);
                                 }
                         ))
