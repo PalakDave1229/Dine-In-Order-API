@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,9 +27,10 @@ public class FoodItem {
 
     private int stock;
 
+    @Enumerated(EnumType.STRING)
     private StockStatus availability;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private DietType dietType;
 
     private LocalDate createdAt;
@@ -40,4 +42,7 @@ public class FoodItem {
 
     @ManyToOne
     private Restaurant restaurant;
+
+    @ManyToMany(mappedBy = "foodItems")
+    private List<Category> categories;
 }
