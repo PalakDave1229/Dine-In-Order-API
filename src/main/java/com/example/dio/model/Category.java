@@ -1,5 +1,6 @@
 package com.example.dio.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
@@ -16,6 +17,6 @@ public class Category {
     @Id
     private String category;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "categories")
     private List<FoodItem> foodItems;
 }

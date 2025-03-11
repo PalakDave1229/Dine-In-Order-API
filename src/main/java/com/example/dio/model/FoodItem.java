@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "food_item", indexes = {@Index(name = "idx_name", columnList = "name")})
 public class FoodItem {
 
     @Id
@@ -43,6 +44,6 @@ public class FoodItem {
     @ManyToOne
     private Restaurant restaurant;
 
-    @ManyToMany(mappedBy = "foodItems")
+    @ManyToMany
     private List<Category> categories;
 }
