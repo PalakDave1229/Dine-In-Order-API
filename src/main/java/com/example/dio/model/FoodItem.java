@@ -5,6 +5,9 @@ import com.example.dio.enums.StockStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,6 +17,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "food_item", indexes = {@Index(name = "idx_name", columnList = "name")})
+@EntityListeners(AuditingEntityListener.class)
 public class FoodItem {
 
     @Id
@@ -34,8 +38,10 @@ public class FoodItem {
     @Enumerated(EnumType.STRING)
     private DietType dietType;
 
+    @CreatedDate
     private LocalDate createdAt;
 
+    @LastModifiedDate
     private LocalDateTime lastModifiedAt;
 
     @ManyToOne
