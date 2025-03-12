@@ -17,10 +17,11 @@ public class FoodItemResponse {
     private String name;
     private double price;
     private String description;
+    private int stock;
     private StockStatus availability;
     private DietType dietType;
     private List<String> categories;
     private String cuisineType;
-    private LocalDate createdat;
-    private LocalDateTime lastmodifiedat;
+    private LocalDate createdAt;
+    private LocalDateTime lastModifiedAt;
 }

@@ -5,6 +5,7 @@ import com.example.dio.dto.response.RestaurantResponse;
 import com.example.dio.model.CuisineType;
 import com.example.dio.model.Restaurant;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
 /**
  * Mapper interface for converting Restaurant DTOs to entities and vice versa.
@@ -12,6 +13,7 @@ import org.mapstruct.Mapper;
  */
 
 @Mapper(componentModel = "spring")
+@Component
 public interface RestaurantMapper {
 
     /**

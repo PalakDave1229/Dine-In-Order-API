@@ -51,6 +51,15 @@ public class ResponseBuilder {
                 .body(structure);
     }
 
+    public static <T> ResponseEntity<ListResponseStructure<T>> success(List<T> data, HttpStatus httpStatus, String message) {
+        ListResponseStructure<T> res = ListResponseStructure.<T>builder()
+                .message(message)
+                .httpStatus(httpStatus.value())
+                .data(data)
+                .build();
+        return ResponseEntity.status(httpStatus).body(res);
+    }
+
     /**
      * Creates an error response with status and message.
      * @param status HTTP status code
@@ -80,6 +89,9 @@ public class ResponseBuilder {
     public static <T> ResponseEntity<ResponseStructure<T>> OK(T data, String message){
             return success(HttpStatus.OK, "OK",data);
     }
+    public static <T> ResponseEntity<ListResponseStructure<T>> ok(List<T> data,String message){
+        return success(data,HttpStatus.OK,message);
+    }
 
     /**
      * Creates a 201 Created response with message and data.
@@ -91,6 +103,7 @@ public class ResponseBuilder {
     public static <T> ResponseEntity<ResponseStructure<T>> created(T data, String message){
             return success(HttpStatus.CREATED, "CREATED",data);
     }
+
 
     /**
      * Creates a 404 Not Found response with a message.

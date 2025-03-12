@@ -3,7 +3,7 @@ package com.example.dio.service;
 import com.example.dio.dto.request.RegisterRequest;
 import com.example.dio.dto.request.UserRequest;
 import com.example.dio.dto.response.UserResponse;
-import com.example.dio.model.User;
+
 
 
 public interface UserService {
@@ -22,7 +22,7 @@ public interface UserService {
      * @return UserResponse containing user details
      */
     
-    UserResponse findUserById(long userId);
+    UserResponse findById(Long userId);
 
     /**
      * Updates a user by their ID.
@@ -31,6 +31,6 @@ public interface UserService {
      * @return UserResponse containing updated user details
      */
 
-    UserResponse updateUserById(UserRequest userRequest, long userId);
+    UserResponse updateUserById(UserRequest userRequest, Long userId);
 
 }

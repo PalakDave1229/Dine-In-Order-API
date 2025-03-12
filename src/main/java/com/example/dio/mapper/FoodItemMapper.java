@@ -8,6 +8,8 @@ import com.example.dio.model.FoodItem;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 @Component
 
@@ -15,6 +17,7 @@ public interface FoodItemMapper {
 
     public FoodItem mapToFoodItem(FoodItemRequest foodItemRequest);
     public FoodItemResponse mappToFoodItemResponse (FoodItem foodItem);
+    public List<FoodItemResponse> mapToListOfFoodItemResponse(List<FoodItem> foodItems);
 
     default String mapToString(CuisineType value) {
         if(value == null) {
@@ -23,32 +26,33 @@ public interface FoodItemMapper {
         else return value.getCuisine().toLowerCase();
     }
 
+    default  String mapToString(Category value){
+        if(value == null){
+            return null;
+        }
+        else return value.getCategory().toLowerCase();
+    }
+
     default CuisineType mapToCuisineType(String value) {
         if(value == null) {
             return null;
         }
         else {
             CuisineType type = new CuisineType();
-            type.setCuisine(value);
+            type.setCuisine(value.toLowerCase());
             return type;
         }
     }
-    default String mapToString (Category category){
-        if(category == null)
+
+    default  Category mapToCategory(String value){
+        if(value == null)
         {
             return null;
         }
-        return category.getCategory();
-    }
-
-    default  Category mapToCategory(String category){
-        if(category == null)
-        {
-            return null;
+       else{
+           Category type = new Category();
+           type.setCategory(value.toLowerCase());
+           return type;
         }
-        Category category1 = new Category();
-        category1.setCategory(category);
-
-        return category1;
     }
 }

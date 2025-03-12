@@ -40,8 +40,6 @@ public class RestoServiceImpl implements RestoService {
             restaurant.setAdmin(admin);
 
             restaurantReposetory.save(restaurant);
-            System.out.println(restaurant.getRestaurantId());
-
 
             return restaurantMapper.mapToRestaurantResponse(restaurant);
         }

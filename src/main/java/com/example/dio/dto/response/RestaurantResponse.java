@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 public class RestaurantResponse {
 
+    private Long restaurantId;
 
     private String name;
 

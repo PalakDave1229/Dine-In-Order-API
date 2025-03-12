@@ -11,17 +11,22 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "tables")
+@Table(name = "RestaurantTable")
 public class RestaurantTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
     private long tableNo;
 
     private long tableCapacity;
 
+    @Enumerated(EnumType.STRING)
     private TableStatus status;
+
+    @OneToMany(mappedBy = "restaurantTable")
+    private List<CartItem> cartItems;
 
     @ManyToMany(mappedBy = "restaurantTables")
     private List<Staff> staffs;

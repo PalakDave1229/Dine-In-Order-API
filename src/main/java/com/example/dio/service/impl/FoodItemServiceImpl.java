@@ -3,6 +3,7 @@ package com.example.dio.service.impl;
 import com.example.dio.dto.request.FoodItemRequest;
 import com.example.dio.dto.response.FoodItemResponse;
 import com.example.dio.exception.RestaurantNotFoundException;
+import com.example.dio.exception.FoodNotFoundException;
 import com.example.dio.mapper.FoodItemMapper;
 import com.example.dio.model.Category;
 import com.example.dio.model.CuisineType;
@@ -48,16 +49,33 @@ public class FoodItemServiceImpl implements FoodItemService {
                     return cuisineType;
                 });
 
+        foodItem.setCategories(this.createNonExisitngCategory(foodItem.getCategories()));
         foodItem.setRestaurant(restaurant);
         foodItem.setCuisineType(foodItem.getCuisineType());
-
-        List<Category> categories = this.createNonExisitngCategory(foodItem.getCategories());
-        foodItem.setCategories(categories);
 
         foodItemRepository.save(foodItem);
 
         return foodItemMapper.mappToFoodItemResponse(foodItem);
     }
+
+    @Override
+    public List<FoodItemResponse> findByTwoCategories(List<String> categories) {
+        if(categories.isEmpty()){
+            throw new FoodNotFoundException("No food with this categories");
+        }
+        else{
+            List<FoodItemResponse> foodItemList = foodItemMapper.mapToListOfFoodItemResponse(
+                    foodItemRepository.findByTwoCategories(
+                            categories.stream().distinct().toList(),categories.size()));
+            if(foodItemList.isEmpty()){
+                throw new FoodNotFoundException("No food with this categories");
+            }
+            else {
+                return foodItemList;
+            }
+        }
+    }
+
 
     private List<Category> createNonExisitngCategory(List<Category> categories){
         return categories.stream()

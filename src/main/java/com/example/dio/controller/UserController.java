@@ -54,7 +54,7 @@ public class UserController {
            })
    })
     public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable long userId){
-        UserResponse userResponse = userService.findUserById(userId);
+        UserResponse userResponse = userService.findById(userId);
         return ResponseBuilder.success(HttpStatus.OK, "User Found", userResponse);
 
    }

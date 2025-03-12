@@ -7,12 +7,16 @@ import com.example.dio.enums.UserRole;
 import com.example.dio.exception.UserNotFoundByIdException;
 import com.example.dio.mapper.UserMapper;
 import com.example.dio.model.Admin;
+import com.example.dio.model.RestaurantTable;
 import com.example.dio.model.Staff;
 import com.example.dio.model.User;
+import com.example.dio.repository.TableRepository;
 import com.example.dio.repository.UserRepository;
 import com.example.dio.service.UserService;
 import lombok.*;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Implementation of the UserService interface for handling user-related operations.
@@ -23,6 +27,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final TableRepository tableRepository;
 
     /**
      * Registers a new user based on their role.
@@ -33,11 +38,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse registerUser(RegisterRequest registerRequest){
         User user = this.createUserByRole(registerRequest.getUserRole());
-
+        if(user instanceof Staff){
+            List<RestaurantTable> tableList = tableRepository.findAll();
+        }
         userMapper.mapToUserEntity(registerRequest, user);
-
-        userRepository.save(user);
-        return userMapper.mapToUserResponse(user);
+        return userMapper.mapToUserResponse(userRepository.save(user));
     }
 
     /**
@@ -64,7 +69,7 @@ public class UserServiceImpl implements UserService {
      */
 
     @Override
-    public UserResponse findUserById(long userId) {
+    public UserResponse findById(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundByIdException("Failed to find User,user not found by Id"));
         return userMapper.mapToUserResponse(user);
@@ -79,13 +84,12 @@ public class UserServiceImpl implements UserService {
      */
 
     @Override
-    public UserResponse updateUserById(UserRequest userRequest, long userId){
+    public UserResponse updateUserById(UserRequest userRequest, Long userId){
         User exUser = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundByIdException("Failed to Update user, user not found by id"));
 
         userMapper.mapToNewUser(userRequest, exUser);
-        User user = userRepository.save(exUser);
-        return userMapper.mapToUserResponse(user);
+        return userMapper.mapToUserResponse(userRepository.save(exUser));
 
 
     }
