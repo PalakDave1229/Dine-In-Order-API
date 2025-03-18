@@ -54,7 +54,7 @@ public class UserController {
            })
    })
     public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable long userId){
-        UserResponse userResponse = userService.findUserById(userId);
+        UserResponse userResponse = userService.findById(userId);
         return ResponseBuilder.success(HttpStatus.OK, "User Found", userResponse);
 
    }
@@ -71,8 +71,8 @@ public class UserController {
                            @Content(schema = @Schema(implementation = FieldErrorResponse.class))
                    })
            })
-    public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@RequestBody UserRequest userRequest, @PathVariable long  userId){
+    public ResponseEntity<ResponseStructure<UserResponse>> updateUserById(@RequestBody @Valid UserRequest userRequest, @PathVariable long  userId){
         UserResponse userResponse = userService.updateUserById(userRequest, userId);
-        return ResponseBuilder.success(HttpStatus.OK, "User Updated", userResponse);
+        return ResponseBuilder.OK( userResponse ,"User Updated");
    }
 }

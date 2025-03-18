@@ -2,15 +2,18 @@ spring:
   application:
     name:dine-in-order-api
 
-
-# DATASOURCE CONFIGURATION
+  # DATASOURCE CONFIGURATION
   datasource:
-    url: ${MYSQL_URL}
+    url:  ${MYSQL_URL}
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
+  jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
 
 app:
   base-url: /api/v1
