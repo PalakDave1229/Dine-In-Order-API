@@ -34,4 +34,7 @@ public class RestaurantTable {
     @ManyToOne
     private Restaurant restaurant;
 
+    @OneToMany
+    private List<Order> order;
+
 }

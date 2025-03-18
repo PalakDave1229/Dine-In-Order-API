@@ -9,4 +9,5 @@ public interface FoodItemService {
 
     public FoodItemResponse createFoodItem(long id, FoodItemRequest foodItemRequest);
     public List<FoodItemResponse> findByTwoCategories(List<String> categories);
+    public List<FoodItemResponse> findByRestaurantId(long restaurantId);
 }

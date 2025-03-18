@@ -76,6 +76,22 @@ public class FoodItemServiceImpl implements FoodItemService {
         }
     }
 
+    @Override
+    public List<FoodItemResponse> findByRestaurantId(long restaurantId){
+
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found!!"));
+
+        List<FoodItem> foodItemList = foodItemRepository.findByRestaurant(restaurant);
+
+        if(foodItemList.isEmpty()){
+            throw new FoodNotFoundException("No Food with this Restaurant");
+        }
+        else{
+            return foodItemMapper.mapToListOfFoodItemResponse(foodItemList);
+        }
+    }
+
 
     private List<Category> createNonExisitngCategory(List<Category> categories){
         return categories.stream()
